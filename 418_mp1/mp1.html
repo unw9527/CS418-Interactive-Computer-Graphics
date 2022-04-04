@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>mp1</title>
+<meta charset="utf-8">
+</head>
+
+<script id="shader-vs" type="x-shader/x-vertex">#version 300 es
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+
+    in vec4 aVertexColor;
+    in vec3 aVertexPosition;
+    uniform mat4 uModelViewMatrix;
+    out vec4 vColor;
+
+    void main(void) {
+        gl_Position = uModelViewMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aVertexColor;
+    }
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">#version 300 es
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+
+    in vec4 vColor;
+    out vec4 fragmentColor;
+
+    void main(void) {
+            fragmentColor = vColor;
+    }
+</script>
+
+<script src="gl-matrix-min.js"></script>
+<script src="mp1.js"></script>
+
+
+<body onload="startup();">
+  <canvas id="myGLCanvas" width="500" height="500"></canvas>
+</body>
+
+
+
+<p>Select an animation:</p>
+<div>
+<input type="radio" id="Illinois" name="animation" value="I" checked>
+<label for="I">Illinois Logo</label>
+</div>
+<div>
+<input type="radio" id="MyAnimation" name="animation" value="MyAnimation">
+<label for="MyAnimation">Gradually Changed Triangle</label>
+</div>
+
+<p>In my animation, the color of the triangle will change gradually. And the scale of the triangle will change as well.</p>
+
+<p>Author: Kunle Li</p>
+
+</html>
