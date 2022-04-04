@@ -1,6 +1,6 @@
 /**
  * @file mp1: dancing logo
- * @author Kunle Li <kunleli2@illinois.edu>
+ * @author Kunle Li 
  */
 
 /** @global The WebGL context */
