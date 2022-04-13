@@ -101,7 +101,19 @@ class TriMesh{
     loadFromOBJ(fileText)
     {    
         //Your code here
-        
+        let lines = fileText.split("\n");
+        for (let i = 0; i < lines.length; i++){
+            if ("#" == lines[i][0]){continue;}
+            else{
+                let items = lines[i].split(/\b\s+(?!$)/);
+                if (items[0] == "v"){
+                    this.vBuffer.push(...items.slice(1));
+                }
+                else if (items[0] == "f"){
+                    this.fBuffer.push(...items.slice(1).map(function(item){return item - 1;}));
+                }
+            }
+        }
         this.numVertices = this.vBuffer.length / 3;
         this.numFaces = this.fBuffer.length / 3;  
         
@@ -341,7 +353,25 @@ class TriMesh{
     
     canonicalTransform(){
       //Your code here
-     
+      this.modelMatrix = glMatrix.mat4.create();
+      // translate
+      let t = glMatrix.vec3.create();
+      glMatrix.vec3.add(t, this.maxXYZ, this.minXYZ);
+      glMatrix.vec3.scale(t, t, -0.5);
+    //   let T = glMatrix.mat4.create();
+    //   glMatrix.mat4.fromTranslation(T, t);
+
+      // scale
+      let temp = glMatrix.vec3.create();
+      glMatrix.vec3.sub(temp, this.maxXYZ, this.minXYZ);
+      let L = Math.max(...temp);
+    //   let S = glMatrix.mat4.create();
+    //   glMatrix.mat4.fromScaling(S, glMatrix.vec3.fromValues(1/L, 1/L, 1/L));
+      let s = glMatrix.vec3.fromValues(1/L, 1/L, 1/L);
+
+    //   glMatrix.mat4.multiply(this.modelMatrix, S, T);
+    glMatrix.mat4.scale(this.modelMatrix, this.modelMatrix, s);
+    glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, t)
     }
     
     /**
