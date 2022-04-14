@@ -65,6 +65,14 @@ var kEdgeWhite = [0.7, 0.7, 0.7];
 /** @global Image texture */
 var texture;
 
+/** @global Is a mouse button pressed? */
+var isDown = false;
+/** @global Mouse coordinates */
+var x = -1;
+var y = -1;
+/** @global Accumulated rotation around Y in degrees */
+var rotY = 0;
+
 /**
  * Translates degrees to radians
  * @param {Number} degrees Degree input to function
@@ -102,13 +110,33 @@ function startup() {
   gl.enable(gl.DEPTH_TEST);
 
   // Load a texture
-  loadTexture("colorful.jpg");
+  loadTexture("images/colorful.jpg");
   // Tell WebGL we want to affect texture unit 0
   gl.activeTexture(gl.TEXTURE0);
   // Bind the texture to texture unit 0
   gl.bindTexture(gl.TEXTURE_2D, texture);
   // Tell the shader we bound the texture to texture unit 0
-  gl.uniform1i(shaderProgram.locations.uSampler, 0);    
+  gl.uniform1i(shaderProgram.locations.uSampler, 0); 
+  
+  canvas.addEventListener('mousedown', e => {
+    x = e.offsetX;
+    y = e.offsetY;
+    isDown = true;
+  });
+
+  canvas.addEventListener('mouseup', e => {
+    x = -1;
+    y = -1;
+    isDown = false;
+  });
+
+  canvas.addEventListener('mousemove', e => {
+    if (isDown){
+      rotY += e.offsetX - x;
+      x = e.offsetX;
+      y = e.offsetY;
+    }
+  });
 
   requestAnimationFrame(animate);
 }
@@ -234,8 +262,9 @@ function draw() {
   
   // Generate the view matrix using lookat.
   glMatrix.mat4.identity(modelViewMatrix);
+  glMatrix.mat4.rotateY(modelViewMatrix,myMesh.getModelTransform(),degToRad(rotY));
   glMatrix.mat4.lookAt(viewMatrix, eyePt, lookAtPt, up);
-  glMatrix.mat4.multiply(modelViewMatrix,  viewMatrix,myMesh.getModelTransform());
+  glMatrix.mat4.multiply(modelViewMatrix, viewMatrix, modelViewMatrix);
     
       
   setMatrixUniforms();
