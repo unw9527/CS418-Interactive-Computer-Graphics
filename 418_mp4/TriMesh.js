@@ -358,20 +358,15 @@ class TriMesh{
       let t = glMatrix.vec3.create();
       glMatrix.vec3.add(t, this.maxXYZ, this.minXYZ);
       glMatrix.vec3.scale(t, t, -0.5);
-    //   let T = glMatrix.mat4.create();
-    //   glMatrix.mat4.fromTranslation(T, t);
 
       // scale
       let temp = glMatrix.vec3.create();
       glMatrix.vec3.sub(temp, this.maxXYZ, this.minXYZ);
       let L = Math.max(...temp);
-    //   let S = glMatrix.mat4.create();
-    //   glMatrix.mat4.fromScaling(S, glMatrix.vec3.fromValues(1/L, 1/L, 1/L));
       let s = glMatrix.vec3.fromValues(1/L, 1/L, 1/L);
 
-    //   glMatrix.mat4.multiply(this.modelMatrix, S, T);
-    glMatrix.mat4.scale(this.modelMatrix, this.modelMatrix, s);
-    glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, t)
+      glMatrix.mat4.scale(this.modelMatrix, this.modelMatrix, s);
+      glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, t)
     }
     
     /**
