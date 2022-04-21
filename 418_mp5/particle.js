@@ -28,7 +28,7 @@ class Particle{
     update(t){
         if (this.stopMoving) {return;}
         let E = m * (-gravity[1]) * (this.position[1] - this.radius + boxsize) + 0.5 * m * Math.pow(this.velocity[1], 2);
-        if (E < 1){ // 1 is based on trial
+        if (E < 0.8){ // 0.8 is based on trial
             this.stopMoving = true;
             return;
         }
@@ -44,6 +44,7 @@ class Particle{
         glMatrix.vec3.scale(newPos, this.velocity, t);
         glMatrix.vec3.add(newPos, this.position, newPos);
         
+        // collision detection
         let delta_t = Infinity;
         let temp_t;
         for (let i = 0; i < 3; i++) {
