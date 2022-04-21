@@ -269,9 +269,6 @@ function animate(currentTime) {
     glMatrix.mat4.fromScaling(S, glMatrix.vec3.fromValues(particle.radius, particle.radius, particle.radius));
     glMatrix.mat4.multiply(modelMatrix, T, S);
     glMatrix.mat4.multiply(modelViewMatrix, viewMatrix, modelMatrix);
-    // glMatrix.mat3.fromMat4(normalMatrix,modelViewMatrix);
-    // glMatrix.mat3.transpose(normalMatrix,normalMatrix);
-    // glMatrix.mat3.invert(normalMatrix,normalMatrix);
     setMatrixUniforms(modelViewMatrix, projectionMatrix, normalMatrix);
     setMaterialUniforms(particle.color, particle.color, kSpecular, shininess);
     gl.drawArrays(gl.TRIANGLES, 0, sphere1.numTriangles*3);

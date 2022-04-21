@@ -45,31 +45,24 @@ class Particle{
         glMatrix.vec3.add(newPos, this.position, newPos);
         
         let delta_t = Infinity;
+        let temp_t;
         for (let i = 0; i < 3; i++) {
-            if (boxsize < newPos[i] + this.radius) {
-                const temp_t = (boxsize - (this.position[i] + this.radius)) / Math.abs(this.velocity[i]);
-                if (temp_t < delta_t) {
-                    delta_t = temp_t;
-                    this.velocity[i] *= -0.9;
-                }
+            if (this.radius - newPos[i] > boxsize){
+                temp_t = ((this.position[i] - this.radius) + boxsize) / Math.abs(this.velocity[i]);
             }
-            if (newPos[i] - this.radius < -boxsize) {
-                const temp_t = ((this.position[i] - this.radius) + boxsize) / Math.abs(this.velocity[i]);
-                if (temp_t < delta_t) {
-                    delta_t = temp_t;
-                    this.velocity[i] *= -0.9;
-                }
+            if (this.radius + newPos[i] > boxsize){
+                temp_t = (boxsize - (this.position[i] + this.radius)) / Math.abs(this.velocity[i]);
+            }
+            if (temp_t < delta_t){
+                delta_t = temp_t;
+                this.velocity[i] *= -0.9;
             }
         }
-        // if it collided, invert sign of wall collision and change position
         if (delta_t != Infinity) {
             glMatrix.vec3.scale(newPos, this.velocity, delta_t);
             glMatrix.vec3.add(newPos, this.position, newPos);
             t -= delta_t;
         }
-
-        // update position
-        // glMatrix.vec3.copy(this.velocity, newVelocity);
         glMatrix.vec3.copy(this.position, newPos);
     }
 }
