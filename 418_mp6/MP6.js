@@ -37,7 +37,7 @@ var kDiffuse = [227/255, 191/255, 76/255];
 // var kSpecular = [227/255, 191/255, 76/255];
 var kSpecular = [1, 1, 1];
 /** @global Shininess exponent for Phong reflection */
-var shininess = 2;
+var shininess = 30;
 
 // Light parameters
 /** @global Light position in VIEW coordinates */
@@ -62,8 +62,8 @@ var kEdgeBlack = [0.0, 0.0, 0.0];
 /** @global Edge color for white wireframe */
 var kEdgeWhite = [0.7, 0.7, 0.7];
 
-/** @global Image texture */
-var texture;
+/** @global Is Gooch shading or not */
+var isGooch = 1;
 
 /** @global Is a mouse button pressed? */
 var isDown = false;
@@ -95,7 +95,7 @@ function startup() {
   setupShaders();
   // Let the mesh object set up its own buffers.
   myMesh = new TriMesh();
-  myMesh.readFile("teapot.obj");
+  myMesh.readFile("bunny.obj");
   
   // Generate the projection matrix using perspective projection.
   const near = 0.1;
@@ -247,8 +247,8 @@ function setupShaders() {
   gl.getUniformLocation(shaderProgram, "diffuseLightColor");
   shaderProgram.locations.specularLightColor =
   gl.getUniformLocation(shaderProgram, "specularLightColor");
-  // shaderProgram.locations.uSampler =
-  //   gl.getUniformLocation(shaderProgram, "u_texture");
+  shaderProgram.locations.isGooch =
+    gl.getUniformLocation(shaderProgram, "isGooch");
 }
 
 /**
@@ -288,6 +288,15 @@ function draw() {
   else if (document.getElementById("wireframe").checked) {
     setMaterialUniforms(kEdgeBlack, kEdgeBlack, kEdgeBlack, shininess);
     myMesh.drawEdges(shaderProgram);
+  }
+
+  if (document.getElementById("gooch").checked == true){
+    //update a uniform variable to let 
+    //vertex shader know whether or not to us Gooch shading
+    gl.uniform1i(shaderProgram.locations.isGooch, 1); 
+  }
+  else{
+    gl.uniform1i(shaderProgram.locations.isGooch, 0); 
   }
 }
 
