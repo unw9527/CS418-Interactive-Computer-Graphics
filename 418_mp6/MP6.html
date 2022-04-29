@@ -1,0 +1,104 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head>
+<title>MP6: Shading for Technical Illustration</title>
+<meta charset="utf-8"> 
+</head>
+
+<!-- If you add additional .js files, be sure to add them here. -->
+<script src="gl-matrix-min.js"></script>
+<script src="TriMesh.js"></script>
+<script src="MP6.js"></script>
+
+<!-- MP2: Modify the shaders to implement Phong shading instead of Gourand! -->
+<script id="shader-vs" type="x-shader/x-vertex">#version 300 es
+// Vertex Shader
+// Implements Phong shading. See the lecture on "Basic Shading" for details.
+
+// Use high-precision floats if available on this device.
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+in vec3 vertexPosition;
+in vec3 vertexNormal;
+
+uniform vec3 kAmbient;
+uniform vec3 kDiffuse;
+uniform vec3 kSpecular;
+uniform vec3 lightPosition;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat3 normalMatrix;
+
+out vec4 fragColor;
+
+
+void main(void) {
+    if (dot(vertexNormal, vertexPosition) < 0.05){
+        fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+    else{
+        float prod = dot(lightPosition, vertexNormal);
+        float coef = (1.0 + prod) / 2.0;
+        vec4 kd = vec4(227/255, 191/255, 76/255, 1.0);
+        vec4 kBlue = vec4(0.0, 0.0, 0.55, 1.0);
+        vec4 kCool = kBlue + 0.25 * kd;
+        vec4 kYellow = vec4(0.3, 0.3, 0.0, 1.0);
+        vec4 kWarm = kYellow + 0.5 * kd;
+        fragColor = coef * kCool + (1.0 - coef) * kWarm;
+    }
+    gl_Position =
+        projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
+}
+</script>
+
+<!-- MP2: Modify the shaders to implement Phong shading instead of Gourand! -->
+<script id="shader-fs" type="x-shader/x-fragment">#version 300 es
+// Fragment Shader
+// Implements Phong shading. See the lecture on "Basic Shading" for details.
+
+// Use high-precision floats if available on this device.
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+in vec4 fragColor;
+
+out vec4 fragmentColor;
+
+
+void main(void) {
+    fragmentColor = fragColor;
+}
+</script>
+
+
+<body onload="startup();">
+    <canvas id="glCanvas" width="1200" height="600"></canvas>
+
+    <form id="input_form">
+        <fieldset>
+            <legend>Rendering Options</legend>
+            <div>
+                <input type="radio" name="primitive" id="wireframe" value="wireframe"> Wireframe
+                <input type="radio" name="primitive" id="polygon" value="polygon" checked> Polygon
+                <input type="radio" name="primitive" id="wirepoly" value="wirepoly" > Polygon with Edges
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Shading Methods</legend>
+            <div>
+                <input type="checkbox" id="gooch" name="gooch" checked>
+                <label for="gooch">Enable Gooch Shading</label>
+            </div>
+        </fieldset>
+    </form>
+</body>
+
+</html>
