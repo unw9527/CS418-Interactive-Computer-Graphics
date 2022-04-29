@@ -98,7 +98,7 @@ class TriMesh{
     * Populate the JS arrays by parsing a string containing an OBJ file
     * @param {string} text of an OBJ file
     */
-    loadFromOBJ(fileText)
+    loadFromOBJ(fileText) 
     {    
         //Your code here
         let lines = fileText.split("\n");
