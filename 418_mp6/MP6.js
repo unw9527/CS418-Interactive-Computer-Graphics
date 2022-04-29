@@ -110,13 +110,13 @@ function startup() {
   gl.enable(gl.DEPTH_TEST);
 
   // Load a texture
-  loadTexture("images/colorful.jpg");
-  // Tell WebGL we want to affect texture unit 0
-  gl.activeTexture(gl.TEXTURE0);
-  // Bind the texture to texture unit 0
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  // Tell the shader we bound the texture to texture unit 0
-  gl.uniform1i(shaderProgram.locations.uSampler, 0); 
+  // loadTexture("images/colorful.jpg");
+  // // Tell WebGL we want to affect texture unit 0
+  // gl.activeTexture(gl.TEXTURE0);
+  // // Bind the texture to texture unit 0
+  // gl.bindTexture(gl.TEXTURE_2D, texture);
+  // // Tell the shader we bound the texture to texture unit 0
+  // gl.uniform1i(shaderProgram.locations.uSampler, 0); 
   
   canvas.addEventListener('mousedown', e => {
     x = e.offsetX;
@@ -247,8 +247,8 @@ function setupShaders() {
   gl.getUniformLocation(shaderProgram, "diffuseLightColor");
   shaderProgram.locations.specularLightColor =
   gl.getUniformLocation(shaderProgram, "specularLightColor");
-  shaderProgram.locations.uSampler =
-    gl.getUniformLocation(shaderProgram, "u_texture");
+  // shaderProgram.locations.uSampler =
+  //   gl.getUniformLocation(shaderProgram, "u_texture");
 }
 
 /**
@@ -358,24 +358,24 @@ function setLightUniforms(a, d, s, loc) {
  * Load a texture from an image.
  */
 
- function loadTexture(filename){
-	// Create a texture.
-	texture = gl.createTexture();
-	gl.bindTexture(gl.TEXTURE_2D, texture);
+//  function loadTexture(filename){
+// 	// Create a texture.
+// 	texture = gl.createTexture();
+// 	gl.bindTexture(gl.TEXTURE_2D, texture);
  
-	// Fill the texture with a 1x1 blue pixel.
-	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
-              new Uint8Array([0, 0, 255, 255]));
+// 	// Fill the texture with a 1x1 blue pixel.
+// 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+//               new Uint8Array([0, 0, 255, 255]));
  
-	// Asynchronously load an image
-	// If image load unsuccessful, it will be a blue surface
-	var image = new Image();
-	image.src = filename;
-	image.addEventListener('load', function() {
-  		// Now that the image has loaded make copy it to the texture.
-  		gl.bindTexture(gl.TEXTURE_2D, texture);
-  		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
-  		gl.generateMipmap(gl.TEXTURE_2D);
-  		console.log("loaded ", filename);
-		});
-}
+// 	// Asynchronously load an image
+// 	// If image load unsuccessful, it will be a blue surface
+// 	var image = new Image();
+// 	image.src = filename;
+// 	image.addEventListener('load', function() {
+//   		// Now that the image has loaded make copy it to the texture.
+//   		gl.bindTexture(gl.TEXTURE_2D, texture);
+//   		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
+//   		gl.generateMipmap(gl.TEXTURE_2D);
+//   		console.log("loaded ", filename);
+// 		});
+// }
