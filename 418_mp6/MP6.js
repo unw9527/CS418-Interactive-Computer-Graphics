@@ -353,7 +353,7 @@ function setLightUniforms(a, d, s, loc) {
   // Animate the next frame. 
   requestAnimationFrame(animate);
 }
-
+ 
 /**
  * Load a texture from an image.
  */
