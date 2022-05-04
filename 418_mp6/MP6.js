@@ -37,7 +37,7 @@ var kDiffuse = [227/255, 191/255, 76/255];
 // var kSpecular = [227/255, 191/255, 76/255];
 var kSpecular = [1, 1, 1];
 /** @global Shininess exponent for Phong reflection */
-var shininess = 30;
+var shininess = 16;
 
 // Light parameters
 /** @global Light position in VIEW coordinates */
@@ -53,7 +53,7 @@ var specularLightColor = [1, 1, 1];
 /** @global point being lookat at in World coordinates */
 const lookAtPt = glMatrix.vec3.fromValues(0.0, 0.0, -1.0);
 /** @global camera location in World coordinates */
-const eyePt = glMatrix.vec3.fromValues(0.0, 0.0, 1.5);
+const eyePt = glMatrix.vec3.fromValues(0.0, 0.5, 1.8);
 /** @global vertical direction of camera in World coordinates */
 const up = glMatrix.vec3.fromValues(0.0, 1.0, 0.0);
 
