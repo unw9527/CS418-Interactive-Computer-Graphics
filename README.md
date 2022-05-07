@@ -5,19 +5,19 @@ These are 5 machine problems from CS418 taken from UIUC in Spring 2022. Demo of 
 
 ### MP1
 
-<img src="img/mp1.gif" alt="scale" style="zoom:200%;" />
+<img src="img/mp1.gif" alt="scale" style="zoom:30%;" />
 
 ### MP2
 
-<img src="img/mp2.png" alt="scale" style="zoom:200%;" />
+<img src="img/mp2.png" alt="scale" style="zoom:30%;" />
 
 ### MP3
 
-<img src="img/mp3.gif" alt="scale" style="zoom:200%;" />
+<img src="img/mp3.gif" alt="scale" style="zoom:60%;" />
 
 ### MP4
 
-<img src="img/mp4.gif" alt="scale" style="zoom:200%;" />
+<img src="img/mp4.gif" alt="scale" style="zoom:50%;" />
 
 ### MP5
 
@@ -25,7 +25,7 @@ These are 5 machine problems from CS418 taken from UIUC in Spring 2022. Demo of 
 
 ### MP6
 
-<img src="img/mp6.gif" alt="scale" style="zoom:200%;" />
+<img src="img/mp6.gif" alt="scale" style="zoom:100%;" />
 
 ## Notice
 
