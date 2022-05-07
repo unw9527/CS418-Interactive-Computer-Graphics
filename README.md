@@ -5,7 +5,7 @@ These are 5 machine problems from CS418 taken from UIUC in Spring 2022. Demo of 
 
 ### MP1
 
-<img src="img/mp1.gif" alt="scale" style="zoom:30%;" />
+<img src="img/mp1.gif" alt="scale" style="zoom:20%;" />
 
 ### MP2
 
@@ -21,7 +21,7 @@ These are 5 machine problems from CS418 taken from UIUC in Spring 2022. Demo of 
 
 ### MP5
 
-<img src="img/mp5.gif" alt="scale" style="zoom:200%;" />
+<img src="img/mp5.gif" alt="scale" style="zoom:300%;" />
 
 ### MP6
 
